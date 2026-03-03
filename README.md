@@ -43,13 +43,14 @@ One of the most important learning experiences in this project was implementing 
 
 I developed a simple pursuit behavior where enemies:
 
-- Continuously detect the player's position
-- Calculate direction vectors toward the player
-- Move dynamically to chase the player
-- Apply damage upon collision
+- Continuously detect the player's position in real-time.
+- Utilize Godot's NavigationRegion2D to generate dynamic pathfinding.
+- Calculate and execute pursuit routes around environmental obstacles.
+- Apply damage upon collision.
 
 This was my first practical experience working with AI-like behavior in games, including:
 
+- Pathfinding and NavMesh implementation (NavigationRegion2D)
 - Vector-based movement
 - Real-time position tracking
 - Basic behavior logic
