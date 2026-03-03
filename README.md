@@ -89,4 +89,15 @@ I was responsible for all programming and gameplay implementation, including:
 - Round management
 - Combat mechanics
 
-All art and visual assets were created by the design team.
+All art and visual assets were created by Pedro Henrique.
+
+
+## How To play
+
+1. Download the project
+2. Open With Godot 4.1
+3. Run the game
+
+or
+
+You can download the game in [Itchio](https://creper70.itch.io/mercenarios-espaciais)
