@@ -1,0 +1,134 @@
+[gd_scene load_steps=12 format=3 uid="uid://ckx70xnv2wwfw"]
+
+[ext_resource type="Script" path="res://Projeto/scripts/inimigo2.gd" id="1_4nj1i"]
+[ext_resource type="Texture2D" uid="uid://csfpu0xfj4gbd" path="res://Projeto/Assets/slime.png" id="2_77us7"]
+[ext_resource type="PackedScene" uid="uid://ifuijtaikaiw" path="res://Projeto/IA/context_map.tscn" id="3_6dl5h"]
+
+[sub_resource type="Animation" id="Animation_jvkmw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_sy1xv"]
+resource_name = "death"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [28, 29, 30, 31, 32]
+}
+
+[sub_resource type="Animation" id="Animation_d7bsf"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_u0g13"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_332sh"]
+_data = {
+"RESET": SubResource("Animation_jvkmw"),
+"death": SubResource("Animation_sy1xv"),
+"idle": SubResource("Animation_d7bsf"),
+"walk": SubResource("Animation_u0g13")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mqrm"]
+size = Vector2(24, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eotb6"]
+size = Vector2(24, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w8w27"]
+radius = 43.0465
+
+[node name="Inimigo" type="CharacterBody2D" node_paths=PackedStringArray("_texture", "_animation") groups=["enemy"]]
+position = Vector2(0, -1)
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("1_4nj1i")
+_texture = NodePath("Texture")
+_animation = NodePath("Animation")
+
+[node name="Texture" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_77us7")
+hframes = 7
+vframes = 5
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_332sh")
+}
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_1mqrm")
+
+[node name="Context_map" parent="." instance=ExtResource("3_6dl5h")]
+visible = false
+position = Vector2(0, 4)
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_eotb6")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_w8w27")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

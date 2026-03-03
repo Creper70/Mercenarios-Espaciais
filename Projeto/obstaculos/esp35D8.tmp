@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjjpqjviupd7a"]
+
+[ext_resource type="Script" path="res://Projeto/obstaculos/espinho.gd" id="1_fcsdo"]
+[ext_resource type="Texture2D" uid="uid://bkr6cne64ikfo" path="res://Projeto/obstaculos/Spikes_sheet_350x350.png" id="2_83vf8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_85li8"]
+size = Vector2(328, 322)
+
+[node name="Espinho" type="Area2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_fcsdo")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_83vf8")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_85li8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

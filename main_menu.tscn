@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://dwbk7d336v2w3"]
+
+[ext_resource type="Texture2D" uid="uid://b0mhif0ohyvlg" path="res://Projeto/Assets/MainMenu.png" id="1_uxror"]
+[ext_resource type="Script" path="res://main_menu.gd" id="1_xx8s0"]
+[ext_resource type="Texture2D" uid="uid://c17ekpnx35dmh" path="res://Projeto/Assets/BotaoSoltoJogar_295x115.png" id="3_gb1gy"]
+[ext_resource type="Texture2D" uid="uid://bbumuxn67vrpj" path="res://Projeto/Assets/BotaoPressSair_295x115.png" id="4_b3mih"]
+[ext_resource type="Texture2D" uid="uid://cjli11iu28pt3" path="res://Projeto/Assets/BotaoPressJogar_295x115.png" id="4_ngxu0"]
+[ext_resource type="Texture2D" uid="uid://dark7eyps6ne0" path="res://Projeto/Assets/BotaoSoltoSair_295x115.png" id="5_c1o1n"]
+[ext_resource type="Texture2D" uid="uid://blkra4vuwf87n" path="res://Projeto/Assets/WASD.png" id="7_aal4x"]
+[ext_resource type="Texture2D" uid="uid://dvslcjsuisidi" path="res://Projeto/Assets/32041.png" id="8_6ctcs"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xx8s0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(480.944, 269.969)
+scale = Vector2(0.500058, 0.500058)
+texture = ExtResource("1_uxror")
+
+[node name="Button" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 407.0
+offset_right = 547.0
+offset_bottom = 457.0
+texture_normal = ExtResource("3_gb1gy")
+texture_pressed = ExtResource("4_ngxu0")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Button2" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 472.0
+offset_right = 547.0
+offset_bottom = 522.0
+texture_normal = ExtResource("5_c1o1n")
+texture_pressed = ExtResource("4_b3mih")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 350.0
+offset_right = 229.0
+offset_bottom = 541.0
+color = Color(0, 0, 0, 1)
+
+[node name="WASD" type="Sprite2D" parent="."]
+position = Vector2(54, 397)
+scale = Vector2(0.289729, 0.289729)
+texture = ExtResource("7_aal4x")
+
+[node name="mouse" type="Sprite2D" parent="."]
+position = Vector2(57, 477)
+scale = Vector2(0.167303, 0.170645)
+texture = ExtResource("8_6ctcs")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 390.0
+offset_right = 223.0
+offset_bottom = 416.0
+text = "Movimentação"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 133.0
+offset_top = 467.0
+offset_right = 216.0
+offset_bottom = 512.0
+theme_override_font_sizes/font_size = 20
+text = "Atirar"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
